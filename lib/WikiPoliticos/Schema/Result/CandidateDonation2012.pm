@@ -74,9 +74,10 @@ __PACKAGE__->add_columns(
   },
   "candidato_cpf",
   {
-    data_type   => "text",
-    is_nullable => 1,
-    original    => { data_type => "varchar" },
+    data_type      => "text",
+    is_foreign_key => 1,
+    is_nullable    => 1,
+    original       => { data_type => "varchar" },
   },
   "recibo_eleitoral_numero",
   {
@@ -92,9 +93,10 @@ __PACKAGE__->add_columns(
   },
   "doador_cnpjf",
   {
-    data_type   => "text",
-    is_nullable => 1,
-    original    => { data_type => "varchar" },
+    data_type      => "text",
+    is_foreign_key => 1,
+    is_nullable    => 1,
+    original       => { data_type => "varchar" },
   },
   "doador_nome",
   {
@@ -178,10 +180,32 @@ __PACKAGE__->add_columns(
   },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->belongs_to(
+  "candidato_cpf",
+  "WikiPoliticos::Schema::Result::Politician",
+  { token => "candidato_cpf" },
+  {
+    is_deferrable => 0,
+    join_type     => "LEFT",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
+  },
+);
+__PACKAGE__->belongs_to(
+  "doador_cnpjf",
+  "WikiPoliticos::Schema::Result::Financier",
+  { token => "doador_cnpjf" },
+  {
+    is_deferrable => 0,
+    join_type     => "LEFT",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
+  },
+);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-13 11:55:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Cw1VG8KFBy4A5AbO2Js7wg
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-18 14:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vRfEK2DC5ItbkzQiSmLbuw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

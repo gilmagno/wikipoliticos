@@ -74,9 +74,10 @@ __PACKAGE__->add_columns(
   },
   "doador_cnpjf",
   {
-    data_type   => "text",
-    is_nullable => 1,
-    original    => { data_type => "varchar" },
+    data_type      => "text",
+    is_foreign_key => 1,
+    is_nullable    => 1,
+    original       => { data_type => "varchar" },
   },
   "doador_nome",
   {
@@ -160,10 +161,21 @@ __PACKAGE__->add_columns(
   },
 );
 __PACKAGE__->set_primary_key("id");
+__PACKAGE__->belongs_to(
+  "doador_cnpjf",
+  "WikiPoliticos::Schema::Result::Financier",
+  { token => "doador_cnpjf" },
+  {
+    is_deferrable => 0,
+    join_type     => "LEFT",
+    on_delete     => "NO ACTION",
+    on_update     => "NO ACTION",
+  },
+);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-13 11:57:54
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:izVSYzeCw5ToXrCkmzdHwA
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-18 14:01:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z1ezKbPJo0IiYnG1weJK6A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

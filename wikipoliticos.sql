@@ -2,42 +2,113 @@
 
 -- cpf não é primary key porque alguma hora podemos querer adicionar um
 -- "político" cujo cpf não sabemos
--- create table politicians (
---     token          varchar primary key,
---     name           varchar,
---     political_name varchar,
---     party          varchar,
---     cpf            varchar unique
--- );
 
--- create table financiers (
---     token varchar primary key,
---     name  varchar,
---     cnpjf varchar unique
--- );
+create table politicians (
+    token          varchar primary key,
+    name           varchar,
+    political_name varchar,
+    party          varchar,
+    cpf            varchar unique
+);
 
--- create table candidatures (
---     politician_id
---     ano
---     uf
---     municipio
---     ue_numero
---     cargo
---     partido
---     candidato_sequencial            -- núm. seqüencial do candidato na eleição
---     candidato_numero                -- núm. do candidato na eleição
+create table financiers (
+    name                 varchar,
+    token                varchar primary key,
+    cnpjf                varchar unique,
+    economic_sector      varchar,
+    economic_sector_code varchar
+);
 
---     -- scrap divulgacad
---     -- coligacao varchar,              -- coligação
---     -- /scrap
-    
---     -- votos_turno_1
---     -- votos_turno_2
---     -- resultado_turno_1               -- "eleito" "não eleito" "segundo turno"
---     -- resultado_turno_2               -- "eleito" "não eleito"
+create table candidatures (
+    politician_id        varchar references politicians,
+    year                 varchar,
+    state                varchar,
+    city                 varchar,
+    ue_numero            varchar,
+    political_position   varchar,
+    party                varchar,
+    candidato_sequencial varchar, -- núm. seqüencial do candidato na eleição
+    candidato_numero     varchar, -- núm. do candidato na eleição
+    primary key (politician_id, year)
+    -- -- scrap divulgacad
+    -- coligacao varchar,              -- coligação
 
---     primary key (politician_id, year)
--- );
+    -- -- scrap ???
+    -- votos_turno_1
+    -- votos_turno_2
+    -- resultado_turno_1               -- "eleito" "não eleito" "segundo turno"
+    -- resultado_turno_2               -- "eleito" "não eleito"
+);
+
+--------------------------------------------------------------------------------
+-- 2010 ------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+create table candidates_donations_2010 (
+    id serial primary key,
+
+    data_hora               varchar, -- Data e hora
+    uf                      varchar, -- UF
+    partido_sigla           varchar, -- Sigla Partido
+    candidato_numero        varchar, -- Número candidato
+    cargo                   varchar, -- Cargo
+    candidato_nome          varchar, -- Nome candidato
+    candidato_cpf           varchar references politicians, -- CPF do candidato
+    entrega_em_conjunto     varchar, -- Entrega em conjunto?
+    recibo_eleitoral_numero varchar, -- Número Recibo Eleitoral
+    documento_numero        varchar, -- Número do documento
+    doador_cnpjf            varchar references financiers, -- CPF/CNPJ do doador
+    doador_nome             varchar, -- Nome do doador
+    receita_data            varchar, -- Data da receita
+    receita_valor           numeric, -- Valor receita
+    receita_tipo            varchar, -- Tipo receita
+    recurso_fonte           varchar, -- Fonte recurso
+    recurso_especie         varchar, -- Espécie recurso
+    receita_descricao       varchar, -- Descrição da receita
+
+    dados_originais         varchar
+);
+
+create table committees_donations_2010 (
+    id                serial primary key,
+    data_hora         varchar, -- Data e hora
+    uf                varchar, -- UF
+    comite_tipo       varchar, -- Tipo comite
+    partido_sigla     varchar, -- Sigla Partido
+    documento_tipo    varchar, -- Tipo do documento
+    documento_numero  varchar, -- Número do documento
+    doador_cnpjf      varchar references financiers, -- CPF/CNPJ do doador
+    doador_nome       varchar, -- Nome do doador
+    receita_data      varchar, -- Data da receita
+    receita_valor     numeric, -- Valor receita
+    receita_tipo      varchar, -- Tipo receita
+    recurso_fonte     varchar, -- Fonte recurso
+    recurso_especie   varchar, -- Espécie recurso
+    receita_descricao varchar, -- Descrição da receita
+
+    dados_originais   varchar
+);
+
+create table parties_donations_2010 (
+    id                serial primary key,
+       
+    data_hora         varchar, -- Data e hora
+    uf                varchar, -- UF
+    partido_tipo      varchar, -- Tipo partido
+    partido_sigla     varchar, -- Sigla Partido
+    documento_tipo    varchar, -- Tipo do documento
+    documento_numero  varchar, -- Número do documento
+    doador_cnpjf      varchar references financiers, -- CPF/CNPJ do doador
+    doador_nome       varchar, -- Nome do doador
+    receita_data      varchar, -- Data da receita
+    receita_valor     numeric, -- Valor receita
+    receita_tipo      varchar, -- Tipo receita
+    recurso_fonte     varchar, -- Fonte recurso
+    recurso_especie   varchar, -- Espécie recurso
+    receita_descricao varchar, -- Descrição da receita
+
+    dados_originais   varchar
+);
 
 --------------------------------------------------------------------------------
 -- 2012 ------------------------------------------------------------------------
@@ -55,10 +126,10 @@ create table candidates_donations_2012 (
     candidato_numero              varchar,            -- candidature
     cargo                         varchar,            -- candidature
     candidato_nome                varchar,            -- politician
-    candidato_cpf                 varchar,            -- politician
+    candidato_cpf                 varchar references politicians,            -- politician
     recibo_eleitoral_numero       varchar,            -- donation
     documento_numero              varchar,            -- donation
-    doador_cnpjf                  varchar,            -- financier
+    doador_cnpjf                  varchar references financiers,            -- financier
     doador_nome                   varchar,            -- financier
     doador_nome_receita_federal   varchar,            -- financier
     doador_ue_sigla               varchar,            -- financier
@@ -72,11 +143,8 @@ create table candidates_donations_2012 (
     recurso_fonte                 varchar,            -- donation
     recurso_especie               varchar,            -- donation
     receita_descricao             varchar,            -- donation
-    
-    dados_originais               varchar
 
-    -- politician_id                 varchar references politicians on update cascade on delete cascade
-    -- financier_id                  varchar references financiers update cascade delete cascade
+    dados_originais               varchar
 );
 
 create table committees_donations_2012 (
@@ -91,7 +159,7 @@ create table committees_donations_2012 (
     partido_sigla                 varchar, -- Sigla Partido
     documento_tipo                varchar, -- Tipo do documento
     documento_numero              varchar, -- Numero do documento
-    doador_cnpjf                  varchar, -- CPF/CNPJ do doador
+    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
     doador_nome                   varchar, -- Nome do doador
     doador_nome_receita_federal   varchar, -- Nome receita doador
     doador_ue_sigla               varchar, -- Sigla UE doador
@@ -107,9 +175,6 @@ create table committees_donations_2012 (
     receita_descricao             varchar,  -- Descricao da receita
 
     dados_originais               varchar
-
-    -- politician_id                 varchar references politicians on update cascade on delete cascade
-    -- financier_id                  varchar references financiers update cascade delete cascade
 );
 
 create table parties_donations_2012 (
@@ -124,7 +189,7 @@ create table parties_donations_2012 (
     partido_sigla                 varchar, -- Sigla Partido
     documento_tipo                varchar, -- Tipo do documento
     documento_numero              varchar, -- Numero do documento
-    doador_cnpjf                  varchar, -- CPF/CNPJ do doador
+    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
     doador_nome                   varchar, -- Nome do doador
     doador_nome_receita_federal   varchar, -- Nome receita doador
     doador_ue_sigla               varchar, -- Sigla UE doador
@@ -140,83 +205,119 @@ create table parties_donations_2012 (
     receita_descricao             varchar, -- Descricao da receita
 
     dados_originais               varchar
-
-    -- politician_id                 varchar references politicians on update cascade on delete cascade
-    -- financier_id                  varchar references financiers update cascade delete cascade
 );
 
 --------------------------------------------------------------------------------
 -- 2014 ------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
--- create table candidates_donations_2014 (
---     id                            serial primary key,
+create table candidates_donations_2014 (
+    id                            serial primary key,
 
---     eleicao_codigo                varchar,
---     eleicao_descricao             varchar,
---     data_hora                     varchar,            -- donation
---     prestador_conta_cnpj          varchar,            -- donation
---     candidato_sequencial          varchar,            -- candidature
---     uf                            varchar,            -- candidature
---     partido_sigla                 varchar,            -- candidature
---     candidato_numero              varchar,            -- candidature
---     cargo                         varchar,            -- candidature
---     candidato_nome                varchar,            -- politician
---     candidato_cpf                 varchar,            -- politician
---     recibo_eleitoral_numero       varchar,            -- donation
---     documento_numero              varchar,            -- donation
---     doador_cnpjf                  varchar,            -- financier
---     doador_nome                   varchar,            -- financier
---     doador_nome_receita_federal   varchar,            -- financier
---     doador_ue_sigla               varchar,            -- financier
---     doador_partido_numero         varchar,            -- financier
---     doador_candidato_numero       varchar,            -- financier
---     doador_setor_economico_codigo varchar,            -- financier
---     doador_setor_economico        varchar,            -- financier
---     receita_data                  varchar,            -- donation
---     receita_valor                 numeric,            -- donation
---     receita_tipo                  varchar,            -- donation
---     recurso_fonte                 varchar,            -- donation
---     recurso_especie               varchar,            -- donation
---     receita_descricao             varchar,            -- donation
---     doador_originario_cnpjf       varchar,            -- donation
---     doador_originario_nome        varchar,            -- donation
---     doador_originario_tipo        varchar,            -- donation
---     doador_originario_setor_economico varchar,        -- donation
---     doador_originario_nome_receita_federal varchar,   -- donation
+    eleicao_codigo                varchar,
+    eleicao_descricao             varchar,
+    data_hora                     varchar,            -- donation
+    prestador_conta_cnpj          varchar,            -- donation
+    candidato_sequencial          varchar,            -- candidature
+    uf                            varchar,            -- candidature
+    partido_sigla                 varchar,            -- candidature
+    candidato_numero              varchar,            -- candidature
+    cargo                         varchar,            -- candidature
+    candidato_nome                varchar,            -- politician
+    candidato_cpf                 varchar references politicians,            -- politician
+    recibo_eleitoral_numero       varchar,            -- donation
+    documento_numero              varchar,            -- donation
+    doador_cnpjf                  varchar references financiers,            -- financier
+    doador_nome                   varchar,            -- financier
+    doador_nome_receita_federal   varchar,            -- financier
+    doador_ue_sigla               varchar,            -- financier
+    doador_partido_numero         varchar,            -- financier
+    doador_candidato_numero       varchar,            -- financier
+    doador_setor_economico_codigo varchar,            -- financier
+    doador_setor_economico        varchar,            -- financier
+    receita_data                  varchar,            -- donation
+    receita_valor                 numeric,            -- donation
+    receita_tipo                  varchar,            -- donation
+    recurso_fonte                 varchar,            -- donation
+    recurso_especie               varchar,            -- donation
+    receita_descricao             varchar,            -- donation
+    doador_originario_cnpjf       varchar,            -- donation
+    doador_originario_nome        varchar,            -- donation
+    doador_originario_tipo        varchar,            -- donation
+    doador_originario_setor_economico varchar,        -- donation
+    doador_originario_nome_receita_federal varchar,   -- donation
 
---     dados_originais               varchar
+    dados_originais               varchar
+);
 
---     --politician_id                 varchar references politicians update cascade delete cascade,
---     --financier_id                  varchar references financiers update cascade delete cascade
--- );
+create table committees_donations_2014 (
+    id                            serial primary key,
 
--- =head2 id
--- =head2 data_hora
--- =head2 candidato_sequencial
--- =head2 uf
--- =head2 partido_sigla
--- =head2 candidato_numero
--- =head2 cargo
--- =head2 candidato_cpf
--- =head2 recibo_eleitoral_numero
--- =head2 documento_numero
--- =head2 doador_cnpjf
--- =head2 doador_nome
--- =head2 doador_nome_receita
--- =head2 doador_ue_sigla
--- =head2 doador_partido_numero
--- =head2 doador_candidato_numero
--- =head2 doador_setor_economico_codigo
--- =head2 doador_setor_economico
--- =head2 receita_data
--- =head2 receita_valor  data_type: 'numeric'
--- =head2 receita_tipo
--- =head2 recurso_fonte
--- =head2 recurso_especie
--- =head2 receita_descricao
--- =head2 dados_originais
+    eleicao_codigo                varchar, -- Cód. Eleição
+    eleicao_descricao             varchar, -- Desc. Eleição
+    data_hora                     varchar, -- Data e hora
+    prestador_conta_cnpj          varchar, -- CNPJ Prestador Conta
+    comite_sequencial             varchar, -- Sequencial Comite
+    uf                            varchar, -- UF
+    comite_tipo                   varchar, -- Tipo Comite
+    partido_sigla                 varchar, -- Sigla  Partido
+    documento_tipo                varchar, -- Tipo do documento
+    documento_numero              varchar, -- Número do documento
+    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
+    doador_nome                   varchar, -- Nome do doador
+    doador_nome_receita_federal   varchar, -- Nome do doador (Receita Federal)
+    doador_ue_sigla               varchar, -- Sigla UE doador
+    doador_partido_numero         varchar, -- Número partido doador
+    doador_candidato_numero       varchar, -- Número candidato doador
+    doador_setor_economico_codigo varchar, -- Cod setor econômico do doador
+    doador_setor_economico        varchar, -- Setor econômico do doador
+    receita_data                  varchar, -- Data da receita
+    receita_valor                 numeric, -- Valor receita
+    receita_tipo                  varchar, -- Tipo receita
+    recurso_fonte                 varchar, -- Fonte recurso
+    recurso_especie               varchar, -- Espécie recurso
+    receita_descricao             varchar, -- Descrição da receita
+    doador_originario_cnpjf       varchar, -- CPF/CNPJ do doador originário
+    doador_originario_nome        varchar, -- Nome do doador originário
+    doador_originario_tipo        varchar, -- Tipo doador originário
+    doador_originario_setor_economico varchar, -- Setor econômico do doador originário
+    doador_originario_nome_receita_federal varchar, -- Nome do doador originário (Receita Federal)
 
--- create table committees_donations_2014 ();
+    dados_originais               varchar
+);
 
--- create table parties_donations_2014 ();
+create table parties_donations_2014 (
+    id                            serial primary key,
+
+    eleicao_codigo                varchar, -- Cód. Eleição
+    eleicao_descricao             varchar, -- Desc. Eleição
+    data_hora                     varchar, -- Data e hora
+    prestador_conta_cnpj          varchar, -- CNPJ Prestador Conta
+    diretorio_sequencial          varchar, -- Sequencial Diretorio
+    uf                            varchar, -- UF
+    diretorio_tipo                varchar, -- Tipo diretorio
+    partido_sigla                 varchar, -- Sigla  Partido
+    documento_tipo                varchar, -- Tipo do documento
+    documento_numero              varchar, -- Número do documento
+    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
+    doador_nome                   varchar, -- Nome do doador
+    doador_nome_receita_federal   varchar, -- Nome do doador (Receita Federal)
+    doador_ue_sigla               varchar, -- Sigla UE doador
+    doador_partido_numero         varchar, -- Número partido doador
+    doador_candidato_numero       varchar, -- Número candidato doador
+    doador_setor_economico_codigo varchar, -- Cod setor econômico do doador
+    doador_setor_economico        varchar, -- Setor econômico do doador
+    receita_data                  varchar, -- Data da receita
+    receita_valor                 numeric, -- Valor receita
+    receita_tipo                  varchar, -- Tipo receita
+    recurso_fonte                 varchar, -- Fonte recurso
+    recurso_especie               varchar, -- Espécie recurso
+    receita_descricao             varchar, -- Descrição da receita
+    doador_originario_cnpjf       varchar, -- CPF/CNPJ do doador originário
+    doador_originario_nome        varchar, -- Nome do doador originário
+    doador_originario_tipo        varchar, -- Tipo doador originário
+    doador_originario_setor_economico varchar, -- Setor econômico do doador originário
+    doador_originario_nome_receita_federal varchar, -- Nome do doador originário (Receita Federal)
+
+    dados_originais               varchar
+);
