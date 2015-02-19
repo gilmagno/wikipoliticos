@@ -6,12 +6,12 @@ use Parallel::ForkManager;
 
 my $schema = WikiPoliticos::Web::Model::DB->new->schema;
 my $csvs_basedir = $ARGV[0];
-my $fork_manager = Parallel::ForkManager->new(5);
+my $fork_manager = Parallel::ForkManager->new(3);
 my %checked_cpfs;
 
-my @politicians_all = $schema->resultset('Politician')->all;
-for my $politician (@politicians_all) {
-    $checked_cpfs{$politician->cpf} = 1;
+my $financiers_rs = $schema->resultset('Politician')->search_rs;
+while (my $politician = $politicians_rs->next) {
+    $checked_cpfs{ $politician->cpf } = 1;
 }
 
 for my $uf (@WikiPoliticos::Util::ufs) {
