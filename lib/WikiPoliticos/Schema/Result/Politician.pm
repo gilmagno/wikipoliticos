@@ -47,19 +47,19 @@ __PACKAGE__->add_unique_constraint("politicians_cpf_key", ["cpf"]);
 __PACKAGE__->has_many(
   "candidates_donations_2010s",
   "WikiPoliticos::Schema::Result::CandidateDonation2010",
-  { "foreign.candidato_cpf" => "self.token" },
+  { "foreign.candidato_cpf" => "self.cpf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "candidates_donations_2012s",
   "WikiPoliticos::Schema::Result::CandidateDonation2012",
-  { "foreign.candidato_cpf" => "self.token" },
+  { "foreign.candidato_cpf" => "self.cpf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "candidates_donations_2014s",
   "WikiPoliticos::Schema::Result::CandidateDonation2014",
-  { "foreign.candidato_cpf" => "self.token" },
+  { "foreign.candidato_cpf" => "self.cpf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
@@ -70,8 +70,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-18 14:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jRpm2KKg6/gAhAMwkxzwNg
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-20 01:28:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6XHyGciCE5KIqi2FPfXcCg
 
 # Esse método assume que a consulta foi feita já ordenando as candidaturas
 sub recent_candidature_str {

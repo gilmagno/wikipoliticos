@@ -79,13 +79,5 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-17 17:03:06
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7GVQS5CDktemxxrFnHVm5Q
 
-sub donations_sum {
-    my $self = shift;
-    my $politician = $self->politician;
-    my $method = 'donations_' . $self->year . '_sum';
-    my $donations_sum = $politician->$method;
-    return $donations_sum ? $donations_sum : undef;
-}
-
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

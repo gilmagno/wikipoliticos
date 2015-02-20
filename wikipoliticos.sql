@@ -53,11 +53,11 @@ create table candidates_donations_2010 (
     candidato_numero        varchar, -- Número candidato
     cargo                   varchar, -- Cargo
     candidato_nome          varchar, -- Nome candidato
-    candidato_cpf           varchar references politicians, -- CPF do candidato
+    candidato_cpf           varchar references politicians(cpf), -- CPF do candidato
     entrega_em_conjunto     varchar, -- Entrega em conjunto?
     recibo_eleitoral_numero varchar, -- Número Recibo Eleitoral
     documento_numero        varchar, -- Número do documento
-    doador_cnpjf            varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf            varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome             varchar, -- Nome do doador
     receita_data            varchar, -- Data da receita
     receita_valor           numeric, -- Valor receita
@@ -77,7 +77,7 @@ create table committees_donations_2010 (
     partido_sigla     varchar, -- Sigla Partido
     documento_tipo    varchar, -- Tipo do documento
     documento_numero  varchar, -- Número do documento
-    doador_cnpjf      varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf      varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome       varchar, -- Nome do doador
     receita_data      varchar, -- Data da receita
     receita_valor     numeric, -- Valor receita
@@ -98,7 +98,7 @@ create table parties_donations_2010 (
     partido_sigla     varchar, -- Sigla Partido
     documento_tipo    varchar, -- Tipo do documento
     documento_numero  varchar, -- Número do documento
-    doador_cnpjf      varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf      varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome       varchar, -- Nome do doador
     receita_data      varchar, -- Data da receita
     receita_valor     numeric, -- Valor receita
@@ -126,10 +126,10 @@ create table candidates_donations_2012 (
     candidato_numero              varchar,            -- candidature
     cargo                         varchar,            -- candidature
     candidato_nome                varchar,            -- politician
-    candidato_cpf                 varchar references politicians,            -- politician
+    candidato_cpf                 varchar references politicians(cpf),            -- politician
     recibo_eleitoral_numero       varchar,            -- donation
     documento_numero              varchar,            -- donation
-    doador_cnpjf                  varchar references financiers,            -- financier
+    doador_cnpjf                  varchar references financiers(cnpjf),            -- financier
     doador_nome                   varchar,            -- financier
     doador_nome_receita_federal   varchar,            -- financier
     doador_ue_sigla               varchar,            -- financier
@@ -159,7 +159,7 @@ create table committees_donations_2012 (
     partido_sigla                 varchar, -- Sigla Partido
     documento_tipo                varchar, -- Tipo do documento
     documento_numero              varchar, -- Numero do documento
-    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf                  varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome                   varchar, -- Nome do doador
     doador_nome_receita_federal   varchar, -- Nome receita doador
     doador_ue_sigla               varchar, -- Sigla UE doador
@@ -189,7 +189,7 @@ create table parties_donations_2012 (
     partido_sigla                 varchar, -- Sigla Partido
     documento_tipo                varchar, -- Tipo do documento
     documento_numero              varchar, -- Numero do documento
-    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf                  varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome                   varchar, -- Nome do doador
     doador_nome_receita_federal   varchar, -- Nome receita doador
     doador_ue_sigla               varchar, -- Sigla UE doador
@@ -224,10 +224,10 @@ create table candidates_donations_2014 (
     candidato_numero              varchar,            -- candidature
     cargo                         varchar,            -- candidature
     candidato_nome                varchar,            -- politician
-    candidato_cpf                 varchar references politicians,            -- politician
+    candidato_cpf                 varchar references politicians(cpf),            -- politician
     recibo_eleitoral_numero       varchar,            -- donation
     documento_numero              varchar,            -- donation
-    doador_cnpjf                  varchar references financiers,            -- financier
+    doador_cnpjf                  varchar references financiers(cnpjf),            -- financier
     doador_nome                   varchar,            -- financier
     doador_nome_receita_federal   varchar,            -- financier
     doador_ue_sigla               varchar,            -- financier
@@ -263,7 +263,7 @@ create table committees_donations_2014 (
     partido_sigla                 varchar, -- Sigla  Partido
     documento_tipo                varchar, -- Tipo do documento
     documento_numero              varchar, -- Número do documento
-    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf                  varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome                   varchar, -- Nome do doador
     doador_nome_receita_federal   varchar, -- Nome do doador (Receita Federal)
     doador_ue_sigla               varchar, -- Sigla UE doador
@@ -299,7 +299,7 @@ create table parties_donations_2014 (
     partido_sigla                 varchar, -- Sigla  Partido
     documento_tipo                varchar, -- Tipo do documento
     documento_numero              varchar, -- Número do documento
-    doador_cnpjf                  varchar references financiers, -- CPF/CNPJ do doador
+    doador_cnpjf                  varchar references financiers(cnpjf), -- CPF/CNPJ do doador
     doador_nome                   varchar, -- Nome do doador
     doador_nome_receita_federal   varchar, -- Nome do doador (Receita Federal)
     doador_ue_sigla               varchar, -- Sigla UE doador

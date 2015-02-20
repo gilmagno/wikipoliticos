@@ -164,7 +164,7 @@ __PACKAGE__->set_primary_key("id");
 __PACKAGE__->belongs_to(
   "doador_cnpjf",
   "WikiPoliticos::Schema::Result::Financier",
-  { token => "doador_cnpjf" },
+  { cnpjf => "doador_cnpjf" },
   {
     is_deferrable => 0,
     join_type     => "LEFT",
@@ -174,8 +174,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-18 14:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z1ezKbPJo0IiYnG1weJK6A
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-20 01:28:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NSUL7bPAEiXTv05t3Vc6+g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

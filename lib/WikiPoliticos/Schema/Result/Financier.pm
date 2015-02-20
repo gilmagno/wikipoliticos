@@ -47,61 +47,61 @@ __PACKAGE__->add_unique_constraint("financiers_cnpjf_key", ["cnpjf"]);
 __PACKAGE__->has_many(
   "candidates_donations_2010s",
   "WikiPoliticos::Schema::Result::CandidateDonation2010",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "candidates_donations_2012s",
   "WikiPoliticos::Schema::Result::CandidateDonation2012",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "candidates_donations_2014s",
   "WikiPoliticos::Schema::Result::CandidateDonation2014",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "committees_donations_2010s",
   "WikiPoliticos::Schema::Result::CommitteeDonation2010",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "committees_donations_2012s",
   "WikiPoliticos::Schema::Result::CommitteeDonation2012",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "committees_donations_2014s",
   "WikiPoliticos::Schema::Result::CommitteeDonation2014",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "parties_donations_2010s",
   "WikiPoliticos::Schema::Result::PartyDonation2010",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "parties_donations_2012s",
   "WikiPoliticos::Schema::Result::PartyDonation2012",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 __PACKAGE__->has_many(
   "parties_donations_2014s",
   "WikiPoliticos::Schema::Result::PartyDonation2014",
-  { "foreign.doador_cnpjf" => "self.token" },
+  { "foreign.doador_cnpjf" => "self.cnpjf" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-18 14:01:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/t9xZhQ0IwD/10FOSfYZlA
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-02-20 01:28:55
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Wit7Plms6AiZWbi9ZoT1tQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
