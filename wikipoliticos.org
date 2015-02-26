@@ -3,7 +3,7 @@ inserir políticos && inserir financiers {
     inserir candidaturas;
 }
 
-* politicians import
+* DONE politicians import
 ** DONE fazer scripts de importação de politicians 201
 ** DONE fazer scripts de importação de politicians 2012
 ** DONE fazer scripts de importação de politicians 2014
@@ -16,7 +16,7 @@ inserir políticos && inserir financiers {
 
 ** atualizar
 
-* financiers import
+* DONE financiers import
 ** DONE fazer scripts de importação de financiers 201 candidates
 ** DONE fazer scripts de importação de financiers 201 committees
 ** DONE fazer scripts de importação de financiers 201 parties
@@ -41,50 +41,50 @@ inserir políticos && inserir financiers {
 ** DONE importar committees financiers 2014
 ** DONE importar parties    financiers
 
-* donations import
-** TODO fazer tabela 2010 candidates donations
-** TODO fazer tabela  2010 committees donations
-** TODO fazer tabela  2010 parties donations
+* DONE candidatures import
+** DONE fazer scripts
+** DONE import_candidatures_2010.pl
+** DONE import_candidatures_2012.pl
+** DONE import_candidatures_2014.pl
 
-** TODO fazer tabela 2012 candidates donations
-** TODO fazer tabela  2012 committees donations
-** TODO fazer tabela  2012 parties donations
+* DONE donations import
+** DONE fazer tabela 2010 candidates donations
+** DONE fazer tabela  2010 committees donations
+** DONE fazer tabela  2010 parties donations
 
-** TODO fazer tabela 2014 candidates donations
-** TODO fazer tabela  2014 committees donations
-** TODO fazer tabela  2014 parties donations
+** DONE fazer tabela 2012 candidates donations
+** DONE fazer tabela  2012 committees donations
+** DONE fazer tabela  2012 parties donations
 
-
-** TODO fazer script de importação 2010 candidates donations
-** TODO fazer script de importação 2010 committees donations
-** TODO fazer script de importação 2010 parties donations
-
-** TODO fazer script de importação 2012 candidates donations
-** TODO fazer script de importação 2012 committees donations
-** TODO fazer script de importação 2012 parties donations
-
-** TODO fazer script de importação 2014 candidates donations
-** TODO fazer script de importação 2014 committees donations
-** TODO fazer script de importação 2014 parties donations
+** DONE fazer tabela 2014 candidates donations
+** DONE fazer tabela  2014 committees donations
+** DONE fazer tabela  2014 parties donations
 
 
-** TODO fazer importação 2010 candidates donations
-** TODO fazer importação 2010 committees donations
-** TODO fazer importação 2012 parties donations
+** DONE fazer script de importação 2010 candidates donations
+** DONE fazer script de importação 2010 committees donations
+** DONE fazer script de importação 2010 parties donations
 
-** TODO fazer importação 2012 candidates donations
-** TODO fazer importação 2012 committees donations
-** TODO fazer importação 2012 parties donations
+** DONE fazer script de importação 2012 candidates donations
+** DONE fazer script de importação 2012 committees donations
+** DONE fazer script de importação 2012 parties donations
 
-** TODO fazer importação 2014 candidates donations
-** TODO fazer importação 2014 committees donations
-** TODO fazer importação 2014 parties donations
+** DONE fazer script de importação 2014 candidates donations
+** DONE fazer script de importação 2014 committees donations
+** DONE fazer script de importação 2014 parties donations
 
-* candidatures import
-** TODO fazer scripts
-** TODO import_candidatures_2010.pl
-** TODO import_candidatures_2012.pl
-** TODO import_candidatures_2014.pl
+
+** DONE [check] fazer importação 2010 candidates donations
+** DONE [check] fazer importação 2010 committees donations
+** DONE [check] fazer importação 2012 parties donations
+
+** DONE [check] fazer importação 2012 candidates donations
+** DONE [check] fazer importação 2012 committees donations
+** DONE [check] fazer importação 2012 parties donations
+
+** DONE [check] fazer importação 2014 candidates donations
+** DONE [check] fazer importação 2014 committees donations
+** DONE [check] fazer importação 2014 parties donations
 
 * fazer scripts de importação de comites 201
 * fazer scripts de importação de comites 2012
@@ -104,7 +104,7 @@ inserir políticos && inserir financiers {
 * importar parties 2014
 
 
-* recent candidature in table politicians
+* [talvez nao será feito] recent candidature in table politicians
 
 * check indexes
 tables candidates_donations_*, committes_donations_* e parties_donations_*
@@ -209,3 +209,8 @@ senador suplente 2
 *** TODO simple search for politicians
 *** TODO telas de financiamento
 *** TODO tela inicial de político
+
+
+
+* jessica
+ou web ou search_string
