@@ -94,7 +94,6 @@ inserir políticos && inserir financiers {
 * fazer scripts de importação de diretorios ("partidos") 2012
 * fazer scripts de importação de diretorios ("partidos") 2014
 
-
 * importar comites 2010
 * importar comites 2012
 * importar comites 2014
@@ -107,6 +106,7 @@ inserir políticos && inserir financiers {
 * [talvez nao será feito] recent candidature in table politicians
 
 * check indexes
+Checar para saber se o índices estão corretos.
 tables candidates_donations_*, committes_donations_* e parties_donations_*
 
 * DONE sums analise
@@ -202,15 +202,24 @@ senador suplente 2
 
 * solucionar problema da ligação entre políticos e comitês e partidos
 
-* web
+* finbra
+
+* postagens
+** regras?
+abuso etc.
+** relevância?
+votos de 'positivo' pelas pessoas
+
+* Ler feeds de jornais progressistas e políticos e os dispor em algum lugar
+Por exemplo, poderíamos ler os feeds do Brasil de Fato, Carta Maior e
+Correio da Cidadania (e outros) e os republicar em algum lugar da
+interface.
+
+* web: tarefas mais ou menos de interface
 ** DONE wrapper.tt com bootstrap e jquery
 ** TODO telas de políticos [1/6]
 *** DONE listagem de políticos
 *** TODO simple search for politicians
 *** TODO telas de financiamento
 *** TODO tela inicial de político
-
-
-
-* jessica
-ou web ou search_string
+*** TODO tela inicial de financiador
