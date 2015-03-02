@@ -9,7 +9,7 @@ my $csvs_basedir = $ARGV[0];
 my $fork_manager = Parallel::ForkManager->new(3);
 my %checked_cpfs;
 
-my $financiers_rs = $schema->resultset('Politician')->search_rs;
+my $politicians_rs = $schema->resultset('Politician')->search_rs;
 while (my $politician = $politicians_rs->next) {
     $checked_cpfs{ $politician->cpf } = 1;
 }
