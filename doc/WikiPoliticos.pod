@@ -1,0 +1,17 @@
+=encoding utf-8
+
+=head1 Banco de dados
+
+As tabela de doação do banco têm as mesmas colunas apresentadas nos
+arquivos CSV de onde seus dados são extraídos. Exemplo: um CSV com
+colunas "Nome Candidato" e "Cargo" geraria um tabela com colunas
+"candidato_nome" e "cargo".
+
+As tabelas de doação têm outras colunas, fora as já explicadas. Há a
+coluna "dados_originais", que contém a linha original do CSV.  Há a
+coluna "politician_id", que é uma chave para um "politician".  E há a
+coluna "financier_id", que é uma chave para um "financier".
+
+O valor que vai nas colunas "dados_originais" e "receita_descricao"
+tem o problema de ter um "\n" no CSV. Se for caso, remover o "\n"
+antes de inserir no banco.
