@@ -321,3 +321,14 @@ create table parties_donations_2014 (
 
     dados_originais               varchar
 );
+
+create table finbra_funcoes (
+    funcao_codigo varchar primary key, -- Código da função
+    nome varchar -- Nome da função
+);
+
+create table finbra_subfuncoes (
+    subfuncao_codigo varchar primary key, -- Código da subfunção
+    nome varchar, -- Nome da subfunção
+    funcao_codigo varchar references finbra_funcoes(funcao_codigo) -- Código da função
+);
