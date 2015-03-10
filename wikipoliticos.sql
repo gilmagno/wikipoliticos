@@ -330,5 +330,5 @@ create table finbra_funcoes (
 create table finbra_subfuncoes (
     subfuncao_codigo varchar primary key, -- Código da subfunção
     nome varchar, -- Nome da subfunção
-    funcao_codigo varchar references finbra_funcoes(funcao_codigo) -- Código da função
+    finbra_funcao_id varchar references finbra_funcoes(funcao_codigo) -- Código da função
 );
