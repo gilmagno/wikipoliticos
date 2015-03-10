@@ -98,6 +98,7 @@ sub make_token {
         $token =~ s/\/|\s+/-/g;
         $token .= '-' . $counter if $counter;
         $counter++;
+        last unless $rs;
         last unless $rs->find({ token => $token });
     }
     return $token;
