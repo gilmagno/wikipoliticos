@@ -1,0 +1,253 @@
+inserir políticos && inserir financiers {
+    inserir doações;
+    inserir candidaturas;
+}
+
+* DONE politicians import
+** DONE fazer scripts de importação de politicians 201
+** DONE fazer scripts de importação de politicians 2012
+** DONE fazer scripts de importação de politicians 2014
+
+** DONE importar politicians do banco 'wkp'
+
+** DONE importar politicians 201
+** DONE importar politicians 2012
+** DONE importar politicians 2014
+
+** atualizar
+
+* DONE financiers import
+** DONE fazer scripts de importação de financiers 201 candidates
+** DONE fazer scripts de importação de financiers 201 committees
+** DONE fazer scripts de importação de financiers 201 parties
+** DONE fazer scripts de importação de financiers 2012 candidates
+** DONE fazer scripts de importação de financiers 2012 committes
+** DONE fazer scripts de importação de financiers 2012 parties
+** DONE fazer scripts de importação de financiers 2014 candidates
+** DONE fazer scripts de importação de financiers 2014 committes
+** DONE fazer scripts de importação de financiers 2014 parties
+
+** DONE rodar, checar output e ajustar script
+
+** DONE insert (select) com financiers do wkp
+
+** DONE importar candidates financiers 2010
+** DONE committees financiers
+** DONE parties    financiers
+** DONE importar candidates financiers 2012
+** DONE committees financiers
+** DONE parties    financiers
+** DONE importar candidates financiers 2014
+** DONE importar committees financiers 2014
+** DONE importar parties    financiers
+
+* DONE candidatures import
+** DONE fazer scripts
+** DONE import_candidatures_2010.pl
+** DONE import_candidatures_2012.pl
+** DONE import_candidatures_2014.pl
+
+* DONE donations import
+** DONE fazer tabela 2010 candidates donations
+** DONE fazer tabela  2010 committees donations
+** DONE fazer tabela  2010 parties donations
+
+** DONE fazer tabela 2012 candidates donations
+** DONE fazer tabela  2012 committees donations
+** DONE fazer tabela  2012 parties donations
+
+** DONE fazer tabela 2014 candidates donations
+** DONE fazer tabela  2014 committees donations
+** DONE fazer tabela  2014 parties donations
+
+
+** DONE fazer script de importação 2010 candidates donations
+** DONE fazer script de importação 2010 committees donations
+** DONE fazer script de importação 2010 parties donations
+
+** DONE fazer script de importação 2012 candidates donations
+** DONE fazer script de importação 2012 committees donations
+** DONE fazer script de importação 2012 parties donations
+
+** DONE fazer script de importação 2014 candidates donations
+** DONE fazer script de importação 2014 committees donations
+** DONE fazer script de importação 2014 parties donations
+
+
+** DONE [check] fazer importação 2010 candidates donations
+** DONE [check] fazer importação 2010 committees donations
+** DONE [check] fazer importação 2012 parties donations
+
+** DONE [check] fazer importação 2012 candidates donations
+** DONE [check] fazer importação 2012 committees donations
+** DONE [check] fazer importação 2012 parties donations
+
+** DONE [check] fazer importação 2014 candidates donations
+** DONE [check] fazer importação 2014 committees donations
+** DONE [check] fazer importação 2014 parties donations
+
+* Finbra
+** DONE Funções e subfunções
+*** DONE escrever sql das tabelas finbra_funcoes e finbra_subfuncoes
+*** DONE rodar esses sqls pra criar as tabelas
+*** DONE rodar dbicdump
+*** DONE exportar tabela 'CT DespFuncao' do mdb para csv
+*** DONE escrever script para, lendo o csv, popular finbra_funcoes e finbra_subfuncoes
+** Locations e códigos do IBGE
+location -> ..., ibge_estado_codigo, ibge_municipio_codigo
+finbra_despesas_funcao -> ..., location_id [locations.token],
+*** copiar table locations do db wkp
+fazer pg_dump e importar tabela locations do db wkp no db wikipoliticos
+*** colocar colunas ibge_* na table locations
+escrever sqls
+*** popular colunas ibge_* da table locations
+Temos que escrever um script que leia o csv vindo do Fibra e popule na
+tabela locations as colunas ibge_*. Sugestão: iterar sobre linhas do
+csv. Tokenizar o nome do Estado ou Município.  Procurar na tabela
+locations uma linha que tenha a coluna 'token' igual ao token
+gerado. Se o token gerado for encontrado na tabela locations, pegar o
+código de Estado e o código de município da linha do csv que gerou o
+token e colocar esses códigos na linha encontrada na tabela locations.
+** finbra_despesas_*
+*** escrever sql de finbra_despesas_funcoes e finbra_despesas_subfuncoes
+*** rodar esses sqls para criar tabelas
+*** rodar dbicdump
+*** exportar tabela (qual?) do mdb para csv
+*** escrever script para, lendo o csv, popular tabelas finbra_despesas_*
+* fazer scripts de importação de comites 201
+* fazer scripts de importação de comites 2012
+* fazer scripts de importação de comites 2014
+
+* fazer scripts de importação de diretorios ("partidos") 201
+* fazer scripts de importação de diretorios ("partidos") 2012
+* fazer scripts de importação de diretorios ("partidos") 2014
+
+* importar comites 2010
+* importar comites 2012
+* importar comites 2014
+
+* importar parties 2010
+* importar parties 2012
+* importar parties 2014
+
+
+* [talvez nao será feito] recent candidature in table politicians
+
+* check indexes
+Checar para saber se o índices estão corretos.
+tables candidates_donations_*, committes_donations_* e parties_donations_*
+
+* DONE sums analise
+
+table politicians
+table candidatures terá campo 'donations_sum'
+
+# Politician Result
+sub donations_sum($year) {
+  ($candidature) = $self->candidatures({ year => $year });
+  return $candidature->donations_sum;
+}
+
+table financiers
+table financiers_donations_sums terá campos 'financier_id', 'year', 'type', 'donations_sum',
+onde type pode ser 'cadidatures', 'committees', 'parties'
+
+$financier->donations_sum($year);
+$financier->donations_sum($year, $type);
+
+* TODO sums in table politicians
+
+** fazer scripts
+** 
+update politicians p set donations_2014_sum = ( select sum(receita_valor) from candidates_donations_2014 where candidato_cpf = p.cpf group by candidato_cpf );
+update politicians p set donations_2012_sum = ( select sum(receita_valor) from candidates_donations_2012 where candidato_cpf = p.cpf group by candidato_cpf );
+update politicians p set donations_2010_sum = ( select sum(receita_valor) from candidates_donations_2010 where candidato_cpf = p.cpf group by candidato_cpf );
+
+** TODO populate politicians.candidates_donations_201_sum
+** TODO populate politicians.candidates_donations_2012_sum
+** TODO populate politicians.candidates_donations_2014_sum
+
+* TODO sums in table financiers
+
+** fazer scripts
+** 
+update financiers f set candidates_donations_2014_sum = ( select sum(receita_valor) from candidates_donations_2014 where doador_cnpjf = f.cnpjf group by doador_cnpjf );
+update financiers f set committees_donations_2014_sum = ( select sum(receita_valor) from committees_donations_2014 where doador_cnpjf = f.cnpjf group by doador_cnpjf );
+update financiers f set parties_donations_2014_sum = ( select sum(receita_valor) from parties_donations_2014 where doador_cnpjf = f.cnpjf group by doador_cnpjf );
+
+** TODO populate financiers.candidates_donations_201_sum
+** TODO populate financiers.committees_donations_201_sum
+** TODO populate financiers.parties_donations_201_sum
+** TODO populate total 201
+
+** TODO populate financiers.candidates_donations_2012_sum
+** TODO populate financiers.committees_donations_2012_sum
+** TODO populate financiers.parties_donations_2012_sum
+** TODO populate total 2012
+
+** TODO populate financiers.candidates_donations_2014_sum
+** TODO populate financiers.committees_donations_2014_sum
+** TODO populate financiers.parties_donations_2014_sum
+** TODO populate total 2014
+
+* "search_" columns: "search_relevance, search_string"
+search_relevance é uma coluna na tabela "politicians" que dá maior
+relevância a alguns políticos no resultado da procura por políticos.
+Exemplo: candidatos a presidente terão search_relevance maior que
+candidatos a vereador, porque provavelmente as procuras serão pelos
+candidatos a presidente.
+
+search_string é uma mistura do token do político com seu
+political_nickname (que deve ser tokenized).  search_string é usada
+como comparação na procura por políticos. É importante para o caso de
+um político que tem o political_nickname muito diferente de seu name e
+que provavelmente será procurado pelo political_nickname. Considerar
+também colocar a sigla do partido na search_string, no caso de
+procurar como "fulano pt". Exemplo: name: Dilma Vana
+Rousseff. political_nickname: Dilma. partido: PT. search_string:
+'dilma vana rousseff dilma pt'.
+
+Pesos?
+
+presidente
+
+senador
+governador
+prefeito
+
+dep fed
+dep dist
+dep est
+
+vereador
+
+vice presidente
+vice governador
+senador suplente 1
+senador suplente 2
+
+* solucionar problema da importação das doações <= 2006 (não há cpf nas doações)
+
+* solucionar problema da ligação entre políticos e comitês e partidos
+
+* finbra
+
+* postagens
+** regras?
+abuso etc.
+** relevância?
+votos de 'positivo' pelas pessoas
+
+* Ler feeds de jornais progressistas e políticos e os dispor em algum lugar
+Por exemplo, poderíamos ler os feeds do Brasil de Fato, Carta Maior e
+Correio da Cidadania (e outros) e os republicar em algum lugar da
+interface.
+
+* web: tarefas mais ou menos de interface
+** DONE wrapper.tt com bootstrap e jquery
+** TODO telas de políticos [1/6]
+*** DONE listagem de políticos
+*** TODO simple search for politicians
+*** TODO telas de financiamento
+*** TODO tela inicial de político
+*** TODO tela inicial de financiador
