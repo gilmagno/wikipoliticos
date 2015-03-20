@@ -1,5 +1,16 @@
 -- locations users politicians financiers posts
 
+----------------------------------------------------------------------
+
+create table locations (
+    id                    varchar primary key,
+    name                  varchar,
+    parent_id             varchar references locations,
+    search_relevance      int,
+    ibge_estado_codigo    int,
+    ibge_municipio_codigo int
+);
+
 -- cpf não é primary key porque alguma hora podemos querer adicionar um
 -- "político" cujo cpf não sabemos
 
