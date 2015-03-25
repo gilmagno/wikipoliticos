@@ -12,7 +12,7 @@ my %municipios_csv = municipios_from_csv();
 
 while (my $location = $finbra_locations_rs->next) {
 	my $pais_uf = substr $location->id, 0, 6;
-	my $municipio_token = $location->id;
+	my $municipio_token = WikiPoliticos::Util::make_token($location->name);
 	$municipio_token =~ s/$pais_uf//; # Retirando o prefixo pais-uf do nome do municipio
 	
 	if (my $municipio_csv = $municipios_csv{ $municipio_token }) {
@@ -32,7 +32,6 @@ sub municipios_from_csv {
 		$array[2] =~ s/^"//; 
 		$array[2] =~ s/"$//; 
 		my $municipio_csv_tokenized = WikiPoliticos::Util::make_token($array[2]); # Tokenizando o nome do municipio para comparação
-		# print "$municipio_csv_tokenized \n";
 		$municipios_csv{ $municipio_csv_tokenized } = 
 		{ estado_codigo => $array[0],
 			municipio_codigo => $array[1]
