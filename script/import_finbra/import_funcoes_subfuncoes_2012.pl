@@ -11,6 +11,7 @@ my $finbra_subfuncoes_rs = $schema->resultset('FinbraSubfuncao')->search_rs;
 open my $fh, '<:encoding(utf8)', $csvs_basedir;
 
 while (my $line = <$fh>) {
+	chomp $line;
 	next if $line =~ /^COD/;
 	my @array = split /,/, $line;
 	$array[1] =~ s/^"//; 
@@ -38,4 +39,4 @@ while (my $line = <$fh>) {
 	}
 }
 
-close $fh or die "$fh: $!"; 
+close $fh or die "$fh: $!";
