@@ -35,8 +35,8 @@ sub process_line {
     my %funcoes_despesas;
 
     my $location = $locations_rs->find(
-        { ibge_estado_codigo => $estado_codigo },
-        { ibge_municipio_codigo => $municipio_codigo });
+        { ibge_estado_codigo => $estado_codigo,
+          ibge_municipio_codigo => $municipio_codigo });
 
     my @finbra_funcoes = $finbra_funcoes_rs->search
       (undef, { order_by => { -asc => 'funcao_codigo' } });
