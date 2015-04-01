@@ -33,6 +33,8 @@ while (my $line = <$fh>) {
     # }
 }
 
+close $fh or die "$fh: $!";
+
 sub process_line {
     my ($line, @column_names) = @_;
     my @array = split /,/, $line;
@@ -62,5 +64,3 @@ sub process_line {
 
     return $location, \%funcoes_despesas;
 }
-
-close $fh or die "$fh: $!";
