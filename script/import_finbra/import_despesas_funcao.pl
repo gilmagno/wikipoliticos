@@ -34,7 +34,7 @@ sub process_line {
     my $municipio_codigo = $array[1];
     my %funcoes_despesas;
 
-    my $location = $locations_rs->search(
+    my $location = $locations_rs->find(
         { ibge_estado_codigo => $estado_codigo },
         { ibge_municipio_codigo => $municipio_codigo });
 
