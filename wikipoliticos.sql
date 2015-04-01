@@ -343,3 +343,19 @@ create table finbra_subfuncoes (
     nome varchar, -- Nome da subfunção
     finbra_funcao_id varchar references finbra_funcoes(funcao_codigo) -- Código da função
 );
+
+create table finbra_despesas_funcao (
+    ano varchar,
+    location_id varchar references locations on update cascade,
+    finbra_funcao_id varchar references finbra_funcoes on update cascade,
+    valor numeric,
+    primary key (ano, location_id, finbra_funcao_id)
+);
+
+create table finbra_despesas_subfuncao (
+    ano varchar,
+    location_id varchar references locations on update cascade,
+    finbra_subfuncao_id varchar references finbra_subfuncoes on update cascade,
+    valor numeric,
+    primary key (ano, location_id, finbra_subfuncao_id)
+);

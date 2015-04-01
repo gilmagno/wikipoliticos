@@ -39,6 +39,18 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->has_many(
+  "finbra_despesas_funcaos",
+  "WikiPoliticos::Schema::Result::FinbraDespesasFuncao",
+  { "foreign.location_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+__PACKAGE__->has_many(
+  "finbra_despesas_subfuncaos",
+  "WikiPoliticos::Schema::Result::FinbraDespesasSubfuncao",
+  { "foreign.location_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+__PACKAGE__->has_many(
   "locations",
   "WikiPoliticos::Schema::Result::Location",
   { "foreign.parent_id" => "self.id" },
@@ -57,8 +69,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-03-12 15:41:27
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z8FApMdUpoBXYlMHfOq5uQ
+# Created by DBIx::Class::Schema::Loader v0.07042 @ 2015-03-31 00:25:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iwl2BmHlkt/LjH7hHk0ehg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
