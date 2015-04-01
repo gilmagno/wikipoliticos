@@ -10,6 +10,12 @@ my $finbra_funcoes_rs = $schema->resultset('FinbraFuncao')->search_rs;
 my $finbra_despesas_funcao_rs = $schema->resultset('FinbraDespesasFuncao')->search_rs;
 my $locations_rs = $schema->resultset('Location')->search_rs;
 
+my @finbra_funcoes = $finbra_funcoes_rs->search
+  (undef, { order_by => { -asc => 'funcao_codigo' } });
+
+my @finbra_funcoes_codigos = map { $_->funcao_codigo } @finbra_funcoes;
+@finbra_funcoes_codigos = sort {$a <=> $b} @finbra_funcoes_codigos; # Deixando codigos em ordem crescente
+
 open my $fh, '<:encoding(utf8)', $csvs_basedir;
 
 my @column_names = split /,/, <$fh>;
@@ -38,11 +44,6 @@ sub process_line {
         { ibge_estado_codigo => $estado_codigo,
           ibge_municipio_codigo => $municipio_codigo });
 
-    my @finbra_funcoes = $finbra_funcoes_rs->search
-      (undef, { order_by => { -asc => 'funcao_codigo' } });
-
-    my @finbra_funcoes_codigos = map { $_->funcao_codigo } @finbra_funcoes;
-    @finbra_funcoes_codigos = sort {$a <=> $b} @finbra_funcoes_codigos; # Deixando codigos em ordem crescente
 
     my @finbra_funcoes_despesas = ();
     push @finbra_funcoes_despesas, $array[3]; # Adicionando a despesa da primeira funcao
