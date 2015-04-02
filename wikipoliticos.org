@@ -86,34 +86,43 @@ inserir políticos && inserir financiers {
 ** DONE [check] fazer importação 2014 committees donations
 ** DONE [check] fazer importação 2014 parties donations
 
-* Finbra
-** Funções e subfunções
-*** escrever sql das tabelas finbra_funcoes e finbra_subfuncoes
-*** rodar esses sqls pra criar as tabelas
-*** rodar dbicdump
-*** exportar tabela 'CT DespFuncao' do mdb para csv
-*** escrever script para, lendo o csv, popular finbra_funcoes e finbra_subfuncoes
-** Locations e códigos do IBGE
+* TODO Finbra
+** DONE Funções e subfunções
+*** DONE escrever sql das tabelas finbra_funcoes e finbra_subfuncoes
+*** DONE rodar esses sqls pra criar as tabelas
+*** DONE rodar dbicdump
+*** DONE exportar tabela 'CT DespFuncao' do mdb para csv
+*** DONE escrever script para, lendo o csv, popular finbra_funcoes e finbra_subfuncoes
+** TODO finbra_despesas_*
+*** DONE escrever sql de finbra_despesas_funcoes e finbra_despesas_subfuncoes
+*** DONE rodar esses sqls para criar tabelas
+*** DONE rodar dbicdump
+*** DONE exportar tabela (DSubFuncao) do mdb para csv
+*** DONE escrever script para, lendo o csv, popular tabelas finbra_despesas_*
+*** TODO escrever algum script para conferir os dados finbra_despesas_*
+** DONE Locations e códigos do IBGE
 location -> ..., ibge_estado_codigo, ibge_municipio_codigo
 finbra_despesas_funcao -> ..., location_id [locations.token],
-*** copiar table locations do db wkp
+*** DONE copiar table locations do db wkp
 fazer pg_dump e importar tabela locations do db wkp no db wikipoliticos
-*** colocar colunas ibge_* na table locations
+*** DONE colocar colunas ibge_* na table locations
 escrever sqls
-*** popular colunas ibge_* da table locations
-Temos que escrever um script que leia o csv vindo do Fibra e popule na
-tabela locations as colunas ibge_*. Sugestão: iterar sobre linhas do
-csv. Tokenizar o nome do Estado ou Município.  Procurar na tabela
-locations uma linha que tenha a coluna 'token' igual ao token
-gerado. Se o token gerado for encontrado na tabela locations, pegar o
-código de Estado e o código de município da linha do csv que gerou o
-token e colocar esses códigos na linha encontrada na tabela locations.
-** finbra_despesas_*
-*** escrever sql de finbra_despesas_funcoes e finbra_despesas_subfuncoes
-*** rodar esses sqls para criar tabelas
-*** rodar dbicdump
-*** exportar tabela (qual?) do mdb para csv
-*** escrever script para, lendo o csv, popular tabelas finbra_despesas_*
+*** DONE popular colunas ibge_* da table locations
+**** DONE fazer csv
+**** DONE escrever script
+
+* [Fazer mesmo? Baixa prioridade] coluna 'token' na tabela location
+Tabela locations tem coluna id feito com tokenização de sua coluna
+nome.  No entanto, essa tokenização usou outro método, e não o método
+atual do WikiPoliticos::Util::make_token.
+
+Considerar fazer coluna 'token' na tabela locations e a preencher com
+os nomes tokenizados das locations, usando o método make_token.
+
+Devemos ficar com a coluna id no banco de dados por causa de
+retrocompatibilidade.
+** TODO criar coluna 'token' na 'locations'
+** TODO escrever script pra popular coluna 'token'
 * fazer scripts de importação de comites 201
 * fazer scripts de importação de comites 2012
 * fazer scripts de importação de comites 2014
