@@ -21,14 +21,15 @@ my @column_names = split /,/, <$fh>;
 while (my $line = <$fh>) {
     next if $line =~ /^UF/;
     my ($location, $funcoes_despesas) = process_line($line, @column_names);
-    last;
-    # while (my ($funcao_id, $despesa) = each %{$funcoes_despesas}) {
-    #   $despesa_to_create = { location_id => $location->id,
-    #                          finbra_funcao_id => $funcao_id,
-    #                          valor => $despesa };
 
-    #   $finbra_despesas_funcao_rs->create($despesa_to_create);
-    # }
+    while (my ($funcao_id, $despesa) = each %{$funcoes_despesas}) {
+        $despesa_to_create = { ano => 2012,
+                               location_id => $location->id,
+                               finbra_funcao_id => $funcao_id,
+                               valor => $despesa };
+
+        $finbra_despesas_funcao_rs->create($despesa_to_create);
+    }
 }
 
 close $fh or die "$fh: $!";
@@ -43,7 +44,6 @@ sub process_line {
     my $location = $locations_rs->find(
         { ibge_estado_codigo => $estado_codigo,
           ibge_municipio_codigo => $municipio_codigo });
-
 
     my @finbra_funcoes_despesas = ();
     push @finbra_funcoes_despesas, $array[3]; # Adicionando a despesa da primeira funcao
